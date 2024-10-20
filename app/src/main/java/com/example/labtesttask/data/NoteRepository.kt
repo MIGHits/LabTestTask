@@ -3,6 +3,8 @@ package com.example.labtesttask.data
 import android.content.Context
 import android.content.SharedPreferences
 import com.example.labtesttask.MyApplication
+import com.example.labtesttask.data.PrefsConstants.NOTES_KEY
+import com.example.labtesttask.data.PrefsConstants.PREFS_NAME
 import com.example.labtesttask.presentation.model.Note
 import com.example.labtesttask.presentation.ui.MainActivity
 import com.google.gson.Gson
@@ -30,9 +32,4 @@ class NoteRepository {
             emptyList()
         }
     }
-
-    companion object {
-        const val PREFS_NAME = "NotesPrefs"
-        const val NOTES_KEY = "Note"
-     }
 }

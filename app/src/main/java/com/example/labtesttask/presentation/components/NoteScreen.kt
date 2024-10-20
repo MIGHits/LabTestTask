@@ -1,5 +1,8 @@
 package com.example.labtesttask.presentation.components
 
+import android.app.Application
+import android.content.Context
+import android.content.SharedPreferences
 import android.widget.ImageButton
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -33,8 +36,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
 import androidx.navigation.NavController
+import com.example.labtesttask.MyApplication
 import com.example.labtesttask.R
+import com.example.labtesttask.data.PrefsConstants.PREFS_NAME
 import com.example.labtesttask.presentation.components.FontFamily.customFontFamily
 import com.example.labtesttask.presentation.model.Note
 import com.example.labtesttask.presentation.theme.mainBackground
@@ -42,6 +49,7 @@ import com.example.labtesttask.presentation.theme.softOrange
 import com.example.labtesttask.presentation.theme.tagTextColor
 import com.example.labtesttask.presentation.theme.textSoft
 import com.example.labtesttask.presentation.theme.unfocusedBorder
+import com.example.labtesttask.presentation.ui.MainActivity
 import com.example.labtesttask.presentation.ui.MainViewModel
 import com.google.gson.Gson
 import java.util.UUID
@@ -50,6 +58,7 @@ import java.util.UUID
 fun NoteScreen(navController: NavController,
                viewModel: MainViewModel,
                noteJson: String){
+
     var note = Note("","","initial")
     if (noteJson.isNotEmpty()) {
         note = Gson().fromJson(noteJson, Note::class.java)
@@ -129,4 +138,19 @@ fun NoteScreen(navController: NavController,
             }
         }
     }
+}
+
+fun saveTextDraught(key:String,text:String){
+    val context = MyApplication.instance
+    val pref: SharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+    val editor: SharedPreferences.Editor = pref.edit()
+    editor.putString(key,text)
+    editor.apply()
+}
+
+fun loadText(key: String):String?{
+    val context = MyApplication.instance
+    val pref: SharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+    val editor: SharedPreferences.Editor = pref.edit()
+    return  pref.getString(key,"")
 }

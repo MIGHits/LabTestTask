@@ -1,5 +1,8 @@
 package com.example.labtesttask.presentation.ui
 
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.example.labtesttask.domain.AddNoteUseCase
 import com.example.labtesttask.domain.DeleteNoteUseCase
@@ -36,4 +39,5 @@ class MainViewModel(
     fun setNoteList(){
         _noteList.value = noteUseCase.loadNote()
     }
+
 }
